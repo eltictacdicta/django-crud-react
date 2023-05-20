@@ -51,38 +51,47 @@ export function TaskFormPage() {
     },[])
     
     return (
-      <div>
+      <div className="max-w-xl mx-auto">
           <form onSubmit={onSubmit}>
             <input type="text" name="title" id="title" placeholder="Titulo"
             {...register("title", {required:true})}
+            className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
             />
 
             {errors.title && <span>Este campo es requerido</span>}
 
             <textarea rows="3" placeholder="Descripción"
             {...register("description", {required:true})}
+            className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
             ></textarea>
             {errors.description && <span>Este campo es requerido</span>}
 
 
-            <button type="">Guardar</button>
+            <button 
+              className="bg-indigo-500 p-3 rounded-lg block w-full mt-3"
+            >Guardar</button>
           </form>
-          {params.id && <button
-            onClick={async ()=>{
-              const accepted = window.confirm('¿Estas seguro?')
-              if (accepted){
-                await deleteTask(params.id)
-                toast.success('Tarea Eliminada',{
-                  position:'bottom-right',
-                  style:{
-                    background: '#101010',
-                    color: '#fff'
-                  }
-                })
-                navegate('/tasks')
-              }              
-            }}
-          >Eliminar</button>}
+          {params.id && 
+          <div className="flex justify-end">
+              <button
+              className="bg-red-500 p-3 rounded-lg w-48 mt-3"
+              onClick={async ()=>{
+                const accepted = window.confirm('¿Estas seguro?')
+                if (accepted){
+                  await deleteTask(params.id)
+                  toast.success('Tarea Eliminada',{
+                    position:'bottom-right',
+                    style:{
+                      background: '#101010',
+                      color: '#fff'
+                    }
+                  })
+                  navegate('/tasks')
+                }              
+              }}
+            >Eliminar</button>
+          </div>
+          }
       </div>
     )
   }
